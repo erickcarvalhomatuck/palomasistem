@@ -6,7 +6,9 @@
     <title>Bacellar Soluções Financeiras - Empréstimo Consignado, FGTS e INSS</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <style>
+    <link rel="icon" href="favicon.png" sizes="32x32" type="image/png">
+   
+   <style>
         :root {
             --primary: #CEC31A;
             --primary-dark: #CEC31A;
@@ -109,6 +111,81 @@
 
         .btn-outline:hover {
             color: var(--secondary);
+        }
+
+        /* Ad Modal */
+        .ad-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .ad-modal-content {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: var(--shadow-heavy);
+            overflow: hidden;
+        }
+
+        .ad-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--white);
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: var(--transition);
+            font-size: 18px;
+        }
+
+        .ad-modal-close:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.1);
+        }
+
+        .ad-modal-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .ad-modal-footer {
+            padding: 20px;
+            text-align: center;
+            background: var(--white);
+        }
+
+        .ad-modal-footer .btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         /* Header */
@@ -354,6 +431,552 @@
             color: var(--secondary);
         }
 
+        /* Simulator Section */
+        .simulator {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .simulator::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .simulator-container {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .simulator-content {
+            flex: 1;
+        }
+
+        .simulator-content h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+            color: var(--white);
+        }
+
+        .simulator-content p {
+            margin-bottom: 30px;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .product-selector {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .product-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            padding: 12px 25px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .product-btn.active, .product-btn:hover {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        .simulator-form {
+            flex: 1;
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+            background-color: var(--light);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .simulator-result {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin-top: 30px;
+            display: none;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary);
+            color: var(--dark);
+        }
+
+        .simulator-result h4 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+        }
+
+        .simulator-result h4 i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            color: var(--dark);
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--secondary);
+            font-size: 18px;
+        }
+
+        /* Chat Widget */
+        .chat-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .chat-trigger:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-widget {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            z-index: 1001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .chat-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--secondary);
+            transition: var(--transition);
+        }
+
+        .chat-close:hover {
+            transform: rotate(90deg);
+        }
+
+        .chat-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .chat-message.bot {
+            background-color: var(--light-gray);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-message.user {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            resize: none;
+        }
+
+        .chat-send {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            border: none;
+            border-radius: var(--border-radius);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+        }
+
+        /* Chat Options */
+        .chat-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .chat-option-btn {
+            background: var(--light-gray);
+            border: 1px solid var(--primary);
+            padding: 10px 15px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .chat-option-btn:hover {
+            background: var(--primary-light);
+        }
+
+        .chat-option-btn.selected {
+            background: var(--primary);
+            color: var(--secondary);
+        }
+
+        /* Notificação */
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 30px;
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            padding: 15px 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-heavy);
+            z-index: 4000;
+            display: none;
+            animation: slideInRight 0.5s ease;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Chat Modal para Admin */
+        .chat-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-modal-content {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 500px;
+            height: 70%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-heavy);
+        }
+
+        .chat-modal-header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            padding: 20px;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .chat-modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+
+        .chat-modal-body {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .chat-modal-message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 14px;
+            line-height: 1.4;
+            color: var(--dark);
+        }
+
+        .chat-modal-message.client {
+            background-color: var(--light-gray);
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-modal-message.admin {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-modal-input {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-modal-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+        }
+
+        .chat-modal-input button {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--secondary);
+            border: none;
+            border-radius: var(--border-radius);
+            width: 45px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .chat-modal-input button:hover {
+            transform: scale(1.05);
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .admin-header {
+            background-color: var(--secondary);
+            color: var(--white);
+            padding: 20px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-container {
+            padding: 30px 0;
+        }
+
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .admin-tab {
+            padding: 15px 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+            border-bottom: 3px solid transparent;
+        }
+
+        .admin-tab.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        .admin-content {
+            background-color: var(--white);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            padding: 30px;
+        }
+
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .admin-table th, .admin-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .admin-table th {
+            background-color: var(--light-gray);
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .admin-table tr:hover {
+            background-color: var(--light);
+        }
+
+        .status-active {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-form {
+            background-color: var(--white);
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-heavy);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-form h3 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: var(--secondary);
+        }
+
         /* Products Section */
         .products {
             background-color: var(--light-gray);
@@ -472,153 +1095,6 @@
             font-size: 18px;
         }
 
-        /* Simulator Section */
-        .simulator {
-            background: linear-gradient(135deg, var(--secondary) 0%, var(--secondary-light) 100%);
-            color: var(--white);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .simulator::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            right: -100px;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
-            z-index: 0;
-        }
-
-        .simulator-container {
-            display: flex;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .simulator-content {
-            flex: 1;
-        }
-
-        .simulator-content h2 {
-            font-size: 42px;
-            margin-bottom: 20px;
-            color: var(--white);
-        }
-
-        .simulator-content p {
-            margin-bottom: 30px;
-            font-size: 18px;
-            opacity: 0.9;
-        }
-
-        .product-selector {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .product-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--white);
-            padding: 12px 25px;
-            border-radius: var(--border-radius);
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 500;
-        }
-
-        .product-btn.active, .product-btn:hover {
-            background: var(--primary);
-            color: var(--secondary);
-        }
-
-        .simulator-form {
-            flex: 1;
-            background-color: var(--white);
-            padding: 40px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-heavy);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 10px;
-            color: var(--secondary);
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 15px 20px;
-            border: 1px solid #e0e0e0;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            transition: var(--transition);
-            background-color: var(--light);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
-        }
-
-        .form-row {
-            display: flex;
-            gap: 20px;
-        }
-
-        .form-row .form-group {
-            flex: 1;
-        }
-
-        .simulator-result {
-            background: linear-gradient(135deg, var(--light-gray) 0%, var(--white) 100%);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            margin-top: 30px;
-            display: none;
-            box-shadow: var(--shadow);
-            border-left: 4px solid var(--primary);
-        }
-
-        .simulator-result h4 {
-            color: var(--secondary);
-            margin-bottom: 20px;
-            font-size: 22px;
-            display: flex;
-            align-items: center;
-        }
-
-        .simulator-result h4 i {
-            margin-right: 10px;
-            color: var(--primary);
-        }
-
-        .result-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .result-item:last-child {
-            border-bottom: none;
-            font-weight: 700;
-            color: var(--secondary);
-            font-size: 18px;
-        }
-
         /* Contact Section */
         .contact {
             position: relative;
@@ -715,6 +1191,7 @@
         }
 
         /* Footer */
+        /* Footer */
         footer {
             background-color: var(--secondary);
             color: var(--white);
@@ -779,57 +1256,6 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             opacity: 0.7;
             font-size: 14px;
-        }
-
-        /* Popup */
-        .popup {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 380px;
-            background-color: var(--white);
-            border-radius: var(--border-radius);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            z-index: 1001;
-            display: none;
-            animation: slideInUp 0.5s ease;
-            overflow: hidden;
-        }
-
-        .popup-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--secondary);
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .popup-header h3 {
-            margin: 0;
-            font-size: 20px;
-        }
-
-        .popup-close {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-            color: var(--secondary);
-            transition: var(--transition);
-        }
-
-        .popup-close:hover {
-            transform: rotate(90deg);
-        }
-
-        .popup-body {
-            padding: 25px;
-        }
-
-        .popup-body p {
-            margin-bottom: 20px;
-            color: var(--gray);
         }
 
         /* Animations */
@@ -904,6 +1330,11 @@
             .certifications {
                 flex-direction: column;
             }
+
+            .chat-widget {
+                width: 350px;
+                height: 450px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -961,15 +1392,20 @@
                 display: block;
             }
 
-            .popup {
-                width: 320px;
+            .chat-widget {
+                width: calc(100% - 40px);
                 right: 20px;
                 bottom: 20px;
+                height: 400px;
             }
 
             .form-row {
                 flex-direction: column;
                 gap: 0;
+            }
+
+            .ad-modal-content {
+                max-width: 350px;
             }
         }
 
@@ -982,19 +1418,41 @@
                 padding: 25px;
             }
 
-            .popup {
-                width: calc(100% - 40px);
-                right: 20px;
-            }
-
             .footer-links {
                 flex-direction: column;
                 gap: 30px;
+            }
+
+            .admin-table {
+                font-size: 14px;
+            }
+
+            .admin-table th, .admin-table td {
+                padding: 10px;
+            }
+
+            .ad-modal-content {
+                max-width: 300px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Ad Modal -->
+    <div class="ad-modal" id="ad-modal">
+        <div class="ad-modal-content">
+            <button class="ad-modal-close" id="ad-modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <img src="anuncio.png" alt="Oferta Especial - Bacellar Soluções Financeiras" class="ad-modal-image">
+            <div class="ad-modal-footer">
+                <a href="#contact" class="btn" id="ad-contact-btn">
+                    <i class="fas fa-headset" style="margin-right: 10px;"></i> Fale com um Especialista
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- Header -->
     <header>
         <div class="container header-container">
@@ -1008,6 +1466,7 @@
                     <li><a href="#products">Produtos</a></li>
                     <li><a href="#simulator">Simulador</a></li>
                     <li><a href="#contact">Contato</a></li>
+                    <li><a href="#" id="login-btn">Login</a></li>
                 </ul>
                 <div class="mobile-menu" id="mobile-menu">
                     <i class="fas fa-bars"></i>
@@ -1021,7 +1480,7 @@
         <div class="container">
             <div class="hero-content">
                 <h1>Soluções Financeiras com Excelência e Confiança</h1>
-                <p>Oferecemos as melhores condições para antecipação do seu FGTS, empréstimo consignado CLT e INSS com atendimento especializado e humanizado.</p>
+                <p>Oferecemos as melhores condições para antecipação do seu FGTS, bolsa família, empréstimo consignado CLT e INSS com atendimento especializado e humanizado.</p>
                 <div class="hero-buttons">
                     <a href="#simulator" class="btn">Simular Agora</a>
                     <a href="#contact" class="btn btn-outline">Falar com Especialista</a>
@@ -1124,6 +1583,23 @@
                         <a href="#contact" class="btn btn-outline" style="margin-top: auto;">Entrar em Contato</a>
                     </div>
                 </div>
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Bolsa Família">
+                    </div>
+                    <div class="product-content">
+                        <h3>Antecipação Bolsa Família</h3>
+                        <p>Antecipe seus recebimentos do Bolsa Família com condições especiais e atendimento humanizado para suas necessidades.</p>
+                        <ul class="product-features">
+                            <li><i class="fas fa-check"></i> Antecipação de parcelas futuras</li>
+                            <li><i class="fas fa-check"></i> Processo rápido e seguro</li>
+                            <li><i class="fas fa-check"></i> Taxas competitivas</li>
+                            <li><i class="fas fa-check"></i> Atendimento especializado</li>
+                            <li><i class="fas fa-check"></i> Liberação em poucos dias</li>
+                        </ul>
+                        <a href="#simulator" class="btn btn-outline" style="margin-top: auto;">Simular Agora</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1142,6 +1618,8 @@
                     <div class="product-selector">
                         <button class="product-btn active" data-product="fgts">FGTS</button>
                         <button class="product-btn" data-product="clt">Empréstimo CLT</button>
+                        <button class="product-btn" data-product="inss">Empréstimo INSS</button>
+                        <button class="product-btn" data-product="bolsa-familia">Bolsa Família</button>
                     </div>
                     <div class="simulator-features">
                         <div class="feature-item">
@@ -1165,12 +1643,24 @@
                             <select id="product-type" class="form-control" required>
                                 <option value="fgts">Antecipação Saque-Aniversário FGTS</option>
                                 <option value="clt">Empréstimo Consignado CLT</option>
+                                <option value="inss">Empréstimo Consignado INSS</option>
+                                <option value="bolsa-familia">Antecipação Bolsa Família</option>
                             </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="name">Nome Completo</label>
+                            <input type="text" id="name" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="cpf">CPF</label>
                             <input type="text" id="cpf" class="form-control" placeholder="000.000.000-00" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="text" id="phone" class="form-control" placeholder="(11) 99999-9999" required>
                         </div>
                         
                         <div class="form-group" id="fgts-fields">
@@ -1179,6 +1669,9 @@
                             
                             <label for="fgts-balance" style="margin-top: 15px;">Saldo FGTS (aproximado)</label>
                             <input type="text" id="fgts-balance" class="form-control" placeholder="R$ 0,00">
+                            
+                            <label for="withdraw-amount" style="margin-top: 15px;">Valor que deseja sacar</label>
+                            <input type="text" id="withdraw-amount" class="form-control" placeholder="R$ 0,00">
                         </div>
                         
                         <div class="form-group" id="clt-fields" style="display: none;">
@@ -1192,6 +1685,9 @@
                                     <input type="number" id="other-discounts" class="form-control" placeholder="Ex: 500" min="0">
                                 </div>
                             </div>
+                            
+                            <label for="loan-amount">Valor do Empréstimo Desejado</label>
+                            <input type="text" id="loan-amount" class="form-control" placeholder="R$ 0,00">
                             
                             <label for="installments">Número de Parcelas</label>
                             <select id="installments" class="form-control">
@@ -1212,6 +1708,54 @@
                                 <option value="travel">Viagem</option>
                                 <option value="health">Despesas de Saúde</option>
                                 <option value="other">Outros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="inss-fields" style="display: none;">
+                            <label for="benefit-value">Valor do Benefício (R$)</label>
+                            <input type="number" id="benefit-value" class="form-control" placeholder="Ex: 2000" min="0">
+                            
+                            <label for="inss-loan-amount" style="margin-top: 15px;">Valor do Empréstimo Desejado</label>
+                            <input type="text" id="inss-loan-amount" class="form-control" placeholder="R$ 0,00">
+                            
+                            <label for="inss-installments">Número de Parcelas</label>
+                            <select id="inss-installments" class="form-control">
+                                <option value="12">12x</option>
+                                <option value="24">24x</option>
+                                <option value="36">36x</option>
+                                <option value="48">48x</option>
+                                <option value="60">60x</option>
+                                <option value="72">72x</option>
+                                <option value="84">84x</option>
+                                <option value="96">96x</option>
+                            </select>
+                            
+                            <label for="inss-purpose" style="margin-top: 15px;">Finalidade do Empréstimo</label>
+                            <select id="inss-purpose" class="form-control">
+                                <option value="debt">Quitar Dívidas</option>
+                                <option value="reform">Reforma da Casa</option>
+                                <option value="vehicle">Compra de Veículo</option>
+                                <option value="travel">Viagem</option>
+                                <option value="health">Despesas de Saúde</option>
+                                <option value="other">Outros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" id="bolsa-familia-fields" style="display: none;">
+                            <label for="family-benefit-value">Valor do Benefício (R$)</label>
+                            <input type="number" id="family-benefit-value" class="form-control" placeholder="Ex: 600" min="0">
+                            
+                            <label for="family-advance-amount" style="margin-top: 15px;">Valor que deseja antecipar</label>
+                            <input type="text" id="family-advance-amount" class="form-control" placeholder="R$ 0,00">
+                            
+                            <label for="family-installments">Número de Parcelas a Antecipar</label>
+                            <select id="family-installments" class="form-control">
+                                <option value="1">1 parcela</option>
+                                <option value="2">2 parcelas</option>
+                                <option value="3">3 parcelas</option>
+                                <option value="4">4 parcelas</option>
+                                <option value="5">5 parcelas</option>
+                                <option value="6">6 parcelas</option>
                             </select>
                         </div>
                         
@@ -1269,6 +1813,13 @@
                             </div>
                         </div>
                         <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h4>Telefone</h4>
+                                <p>(31) 99839-6424</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
                             <i class="fas fa-envelope"></i>
                             <div>
                                 <h4>E-mail</h4>
@@ -1279,14 +1830,13 @@
                             <i class="fas fa-map-marker-alt"></i>
                             <div>
                                 <h4>Endereço</h4>
-                                <p>Poços de Caldas, SP</p>
+                                <p>Poços de Caldas, MG</p>
                             </div>
                         </div>
                     </div>
                     <div class="social-links">
                         <a href="https://instagram.com/bacellarsolucoesfinanceiras" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="https://wa.me/5531998396424" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
@@ -1311,6 +1861,7 @@
                                 <option value="fgts">Antecipação FGTS</option>
                                 <option value="clt">Empréstimo CLT</option>
                                 <option value="inss">Empréstimo INSS</option>
+                                <option value="bolsa-familia">Bolsa Família</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -1357,30 +1908,160 @@
                         <h4>Contato</h4>
                         <ul>
                             <li><a href="tel:+5535999008321">(35) 99900-8321</a></li>
+                            <li><a href="tel:+5531998396424">(31)99839-6424</a></li>
                             <li><a href="mailto:contato@bacellarcred.com.br">contato@bacellarcred.com.br</a></li>
                             <li><a href="https://wa.me/5535999008321" target="_blank">WhatsApp</a></li>
+                            <li><a href="https://wa.me/555531998396424" target="_blank">WhatsApp</a></li>
                             <li><a href="https://instagram.com/bacellarsolucoesfinanceiras" target="_blank">Instagram</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 Bacellar Soluções Financeiras. Todos os direitos reservados. | bacellarcred.com.br</p>
+                <p>&copy; 2025 Bacellar Soluções Financeiras. Todos os direitos reservados. | bacellarcred.com.br | CNPJ: 40.694.395/0001-94</p>
             </div>
         </div>
     </footer>
 
-    <!-- Popup -->
-    <div class="popup" id="popup">
-        <div class="popup-header">
-            <h3>Precisa de Ajuda?</h3>
-            <button class="popup-close" id="popup-close"><i class="fas fa-times"></i></button>
+    <!-- Chat Widget -->
+    <div class="chat-trigger" id="chat-trigger">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <div class="chat-widget" id="chat-widget">
+        <div class="chat-header">
+            <h3>Atendimento Bacellar</h3>
+            <button class="chat-close" id="chat-close"><i class="fas fa-times"></i></button>
         </div>
-        <div class="popup-body">
-            <p>Fale agora com um de nossos especialistas e descubra a melhor solução para suas necessidades financeiras.</p>
-            <a href="https://wa.me/5531998396424?text=Olá, visitei o site da Bacellar e gostaria de mais informações" class="btn" target="_blank" style="width: 100%;">
-                <i class="fab fa-whatsapp" style="margin-right: 10px;"></i> Falar no WhatsApp
-            </a>
+        <div class="chat-body" id="chat-body">
+            <div class="chat-message bot">
+                Olá! Bem-vindo à Bacellar Soluções Financeiras. Como posso ajudá-lo hoje?
+            </div>
+            <div class="chat-message bot">
+                Por favor, escolha uma opção:
+            </div>
+            <div class="chat-options">
+                <div class="chat-option-btn" data-option="question">Fazer uma pergunta rápida</div>
+                <div class="chat-option-btn" data-option="chat">Conversar com especialista (tempo real)</div>
+            </div>
+        </div>
+        <div class="chat-input-container" style="display: none;">
+            <input type="text" class="chat-input" id="chat-input" placeholder="Digite sua mensagem...">
+            <button class="chat-send" id="chat-send"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="login-modal">
+        <div class="login-form">
+            <h3>Acesso Administrativo</h3>
+            <form id="admin-login-form">
+                <div class="form-group">
+                    <label for="admin-email">E-mail</label>
+                    <input type="email" id="admin-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="admin-password">Senha</label>
+                    <input type="password" id="admin-password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="admin-panel">
+        <div class="admin-header">
+            <div class="container">
+                <div class="header-container">
+                    <div class="logo">
+                        <img src="logo.png" alt="Bacellar Soluções Financeiras">
+                    </div>
+                    <div>
+                        <button class="btn btn-outline" id="admin-logout">Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container admin-container">
+            <div class="admin-tabs">
+                <div class="admin-tab active" data-tab="simulations">Simulações</div>
+                <div class="admin-tab" data-tab="chats">Chats</div>
+                <div class="admin-tab" data-tab="clients">Clientes</div>
+            </div>
+            <div class="admin-content">
+                <div id="simulations-tab" class="admin-tab-content">
+                    <h3>Simulações Realizadas</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Telefone</th>
+                                <th>Produto</th>
+                                <th>Valor Solicitado</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="simulations-table-body">
+                            <!-- Simulations will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="chats-tab" class="admin-tab-content" style="display: none;">
+                    <h3>Conversas com Clientes</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>CPF</th>
+                                <th>Última Mensagem</th>
+                                <th>Data</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="chats-table-body">
+                            <!-- Chats will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+                <div id="clients-tab" class="admin-tab-content" style="display: none;">
+                    <h3>Clientes Cadastrados</h3>
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Telefone</th>
+                                <th>Data de Cadastro</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="clients-table-body">
+                            <!-- Clients will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chat Modal para Admin -->
+    <div class="chat-modal" id="chat-modal">
+        <div class="chat-modal-content">
+            <div class="chat-modal-header">
+                <h3>Chat com <span id="chat-client-name"></span></h3>
+                <button class="chat-modal-close" id="chat-modal-close"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="chat-modal-body" id="chat-modal-body">
+                <!-- Mensagens serão carregadas aqui -->
+            </div>
+            <div class="chat-modal-input">
+                <input type="text" id="admin-chat-input" placeholder="Digite sua mensagem...">
+                <button id="admin-chat-send"><i class="fas fa-paper-plane"></i></button>
+            </div>
         </div>
     </div>
 
@@ -1388,7 +2069,8 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -1404,15 +2086,57 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const auth = getAuth(app);
 
         // Make these available globally
         window.firebaseApp = app;
         window.firestore = db;
+        window.auth = auth;
         window.addDocToFirestore = addDoc;
         window.firestoreCollection = collection;
+        window.getDocsFromFirestore = getDocs;
+        window.firestoreQuery = query;
+        window.firestoreWhere = where;
+        window.firestoreOrderBy = orderBy;
+        window.onSnapshotFirestore = onSnapshot;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.signOut = signOut;
     </script>
 
     <script>
+        // Current user state
+        let currentUser = null;
+        let chatStep = 'option'; // option -> name -> cpf -> chat
+        let currentClient = null;
+        let chatMode = null; // 'question' ou 'chat'
+        let clientChatInterval = null;
+
+        // Variáveis globais para o chat
+        let currentChatClientId = null;
+        let currentChatClientName = null;
+        let chatUnsubscribe = null;
+        let adminChatInterval = null;
+
+        // Mostrar modal de anúncio quando a página carregar
+        document.addEventListener('DOMContentLoaded', function() {
+            // Aguardar 1 segundo antes de mostrar o anúncio
+            setTimeout(function() {
+                document.getElementById('ad-modal').style.display = 'flex';
+            }, 1000);
+        });
+
+        // Fechar modal de anúncio
+        document.getElementById('ad-modal-close').addEventListener('click', function() {
+            document.getElementById('ad-modal').style.display = 'none';
+        });
+
+        // Botão de contato no modal de anúncio
+        document.getElementById('ad-contact-btn').addEventListener('click', function() {
+            document.getElementById('ad-modal').style.display = 'none';
+            // Rolar suavemente para a seção de contato
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
+
         // Mobile Menu Toggle
         document.getElementById('mobile-menu').addEventListener('click', function() {
             document.getElementById('nav-menu').classList.toggle('show');
@@ -1423,13 +2147,24 @@
             const productType = this.value;
             const fgtsFields = document.getElementById('fgts-fields');
             const cltFields = document.getElementById('clt-fields');
+            const inssFields = document.getElementById('inss-fields');
+            const bolsaFamiliaFields = document.getElementById('bolsa-familia-fields');
             
+            // Hide all fields first
+            fgtsFields.style.display = 'none';
+            cltFields.style.display = 'none';
+            inssFields.style.display = 'none';
+            bolsaFamiliaFields.style.display = 'none';
+            
+            // Show relevant fields
             if (productType === 'fgts') {
                 fgtsFields.style.display = 'block';
-                cltFields.style.display = 'none';
-            } else {
-                fgtsFields.style.display = 'none';
+            } else if (productType === 'clt') {
                 cltFields.style.display = 'block';
+            } else if (productType === 'inss') {
+                inssFields.style.display = 'block';
+            } else if (productType === 'bolsa-familia') {
+                bolsaFamiliaFields.style.display = 'block';
             }
         });
 
@@ -1456,17 +2191,28 @@
             e.preventDefault();
             
             const productType = document.getElementById('product-type').value;
+            const name = document.getElementById('name').value;
             const cpf = document.getElementById('cpf').value;
+            const phone = document.getElementById('phone').value;
             const birthDate = document.getElementById('birth-date').value;
             const fgtsBalance = document.getElementById('fgts-balance').value;
+            const withdrawAmount = document.getElementById('withdraw-amount').value;
             const salary = document.getElementById('salary').value;
             const otherDiscounts = document.getElementById('other-discounts').value;
+            const loanAmount = document.getElementById('loan-amount').value;
             const installments = document.getElementById('installments').value;
             const purpose = document.getElementById('purpose').value;
+            const benefitValue = document.getElementById('benefit-value').value;
+            const inssLoanAmount = document.getElementById('inss-loan-amount').value;
+            const inssInstallments = document.getElementById('inss-installments').value;
+            const inssPurpose = document.getElementById('inss-purpose').value;
+            const familyBenefitValue = document.getElementById('family-benefit-value').value;
+            const familyAdvanceAmount = document.getElementById('family-advance-amount').value;
+            const familyInstallments = document.getElementById('family-installments').value;
             
             // Basic validation
-            if (!cpf) {
-                alert('Por favor, preencha seu CPF.');
+            if (!name || !cpf || !phone) {
+                alert('Por favor, preencha nome, CPF e telefone.');
                 return;
             }
             
@@ -1476,29 +2222,62 @@
             if (productType === 'fgts') {
                 // FGTS simulation logic
                 const balance = parseFloat(fgtsBalance.replace('R$ ', '').replace('.', '').replace(',', '.')) || 5000;
-                availableAmount = Math.min(balance * 0.84, 15000);
+                const requestedAmount = parseFloat(withdrawAmount.replace('R$ ', '').replace('.', '').replace(',', '.')) || 0;
+                availableAmount = Math.min(balance * 0.84, 15000, requestedAmount);
                 interestRate = "1.79% a.m.";
                 installmentValue = "Não se aplica";
                 totalAmount = "R$ " + (availableAmount * 1.8).toFixed(2).replace('.', ',');
                 cet = "21.4% a.a.";
                 availableAmount = "R$ " + availableAmount.toFixed(2).replace('.', ',');
-            } else {
+            } else if (productType === 'clt') {
                 // CLT simulation logic
                 const salaryValue = parseFloat(salary) || 3000;
                 const discountsValue = parseFloat(otherDiscounts) || 0;
                 const installmentsValue = parseInt(installments) || 12;
+                const requestedAmount = parseFloat(loanAmount.replace('R$ ', '').replace('.', '').replace(',', '.')) || 0;
                 
                 // Maximum loan amount (up to 35% of net salary)
                 const netSalary = salaryValue - discountsValue;
                 const maxInstallment = netSalary * 0.35;
                 
                 // Calculate available amount based on installment value and term
-                availableAmount = Math.min(maxInstallment * installmentsValue / 0.03, 50000);
+                availableAmount = Math.min(maxInstallment * installmentsValue / 0.03, 50000, requestedAmount);
                 
                 interestRate = "1.99% a.m.";
                 installmentValue = "R$ " + (availableAmount * 0.03).toFixed(2).replace('.', ',');
                 totalAmount = "R$ " + (availableAmount * 1.35).toFixed(2).replace('.', ',');
                 cet = "26.7% a.a.";
+                availableAmount = "R$ " + availableAmount.toFixed(2).replace('.', ',');
+            } else if (productType === 'inss') {
+                // INSS simulation logic
+                const benefitValueNum = parseFloat(benefitValue) || 2000;
+                const installmentsValue = parseInt(inssInstallments) || 12;
+                const requestedAmount = parseFloat(inssLoanAmount.replace('R$ ', '').replace('.', '').replace(',', '.')) || 0;
+                
+                // Maximum loan amount (up to 35% of benefit)
+                const maxInstallment = benefitValueNum * 0.35;
+                
+                // Calculate available amount based on installment value and term
+                availableAmount = Math.min(maxInstallment * installmentsValue / 0.025, 80000, requestedAmount);
+                
+                interestRate = "1.69% a.m.";
+                installmentValue = "R$ " + (availableAmount * 0.025).toFixed(2).replace('.', ',');
+                totalAmount = "R$ " + (availableAmount * 1.28).toFixed(2).replace('.', ',');
+                cet = "22.3% a.a.";
+                availableAmount = "R$ " + availableAmount.toFixed(2).replace('.', ',');
+            } else if (productType === 'bolsa-familia') {
+                // Bolsa Família simulation logic
+                const benefitValueNum = parseFloat(familyBenefitValue) || 600;
+                const installmentsValue = parseInt(familyInstallments) || 1;
+                const requestedAmount = parseFloat(familyAdvanceAmount.replace('R$ ', '').replace('.', '').replace(',', '.')) || 0;
+                
+                // Maximum advance amount (up to 6 months)
+                availableAmount = Math.min(benefitValueNum * installmentsValue * 0.85, 5000, requestedAmount);
+                
+                interestRate = "2.49% a.m.";
+                installmentValue = "Não se aplica";
+                totalAmount = "R$ " + (availableAmount * 1.15).toFixed(2).replace('.', ',');
+                cet = "34.2% a.a.";
                 availableAmount = "R$ " + availableAmount.toFixed(2).replace('.', ',');
             }
             
@@ -1514,14 +2293,25 @@
             // Save simulation data to Firebase
             try {
                 const docRef = await window.addDocToFirestore(window.firestoreCollection(window.firestore, "simulations"), {
+                    name: name,
                     productType: productType,
                     cpf: cpf,
+                    phone: phone,
                     birthDate: birthDate,
                     fgtsBalance: fgtsBalance,
+                    withdrawAmount: withdrawAmount,
                     salary: salary,
                     otherDiscounts: otherDiscounts,
+                    loanAmount: loanAmount,
                     installments: installments,
                     purpose: purpose,
+                    benefitValue: benefitValue,
+                    inssLoanAmount: inssLoanAmount,
+                    inssInstallments: inssInstallments,
+                    inssPurpose: inssPurpose,
+                    familyBenefitValue: familyBenefitValue,
+                    familyAdvanceAmount: familyAdvanceAmount,
+                    familyInstallments: familyInstallments,
                     availableAmount: availableAmount,
                     interestRate: interestRate,
                     installmentValue: installmentValue,
@@ -1530,6 +2320,11 @@
                     timestamp: new Date()
                 });
                 console.log("Simulation saved with ID: ", docRef.id);
+                
+                // Update admin panel if open
+                if (currentUser) {
+                    loadSimulations();
+                }
             } catch (e) {
                 console.error("Error adding simulation: ", e);
             }
@@ -1569,13 +2364,655 @@
             }
         });
 
-        // Popup Logic
-        setTimeout(function() {
-            document.getElementById('popup').style.display = 'block';
-        }, 10000); // Show popup after 10 seconds
+        // Chat functionality
+        document.getElementById('chat-trigger').addEventListener('click', function() {
+            document.getElementById('chat-widget').style.display = 'flex';
+            // Reset chat state when opening
+            chatStep = 'option';
+            currentClient = null;
+            chatMode = null;
+            document.getElementById('chat-body').innerHTML = `
+                <div class="chat-message bot">
+                    Olá! Bem-vindo à Bacellar Soluções Financeiras. Como posso ajudá-lo hoje?
+                </div>
+                <div class="chat-message bot">
+                    Por favor, escolha uma opção:
+                </div>
+                <div class="chat-options">
+                    <div class="chat-option-btn" data-option="question">Fazer uma pergunta rápida</div>
+                    <div class="chat-option-btn" data-option="chat">Conversar com especialista (tempo real)</div>
+                </div>
+            `;
+            document.querySelector('.chat-input-container').style.display = 'none';
+            
+            // Add event listeners to option buttons
+            document.querySelectorAll('.chat-option-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const option = this.getAttribute('data-option');
+                    selectChatOption(option);
+                });
+            });
+        });
 
-        document.getElementById('popup-close').addEventListener('click', function() {
-            document.getElementById('popup').style.display = 'none';
+        document.getElementById('chat-close').addEventListener('click', function() {
+            document.getElementById('chat-widget').style.display = 'none';
+            // Stop auto-refresh when closing chat
+            if (clientChatInterval) {
+                clearInterval(clientChatInterval);
+                clientChatInterval = null;
+            }
+        });
+
+        document.getElementById('chat-send').addEventListener('click', sendChatMessage);
+        document.getElementById('chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendChatMessage();
+            }
+        });
+
+        function selectChatOption(option) {
+            chatMode = option;
+            document.querySelector('.chat-options').style.display = 'none';
+            
+            if (option === 'question') {
+                addMessageToChat('Você escolheu fazer uma pergunta rápida. Por favor, digite sua pergunta e nossa equipe responderá em breve.', 'bot');
+                chatStep = 'question';
+                document.querySelector('.chat-input-container').style.display = 'flex';
+            } else if (option === 'chat') {
+                addMessageToChat('Você escolheu conversar com um especialista em tempo real. Por favor, fique atento às respostas!', 'bot');
+                addMessageToChat('Para começarmos, qual é o seu primeiro e último nome?', 'bot');
+                chatStep = 'name';
+                document.querySelector('.chat-input-container').style.display = 'flex';
+            }
+        }
+
+        async function sendChatMessage() {
+            const input = document.getElementById('chat-input');
+            const message = input.value.trim();
+            
+            if (!message) return;
+            
+            // Add user message to chat
+            addMessageToChat(message, 'user');
+            input.value = '';
+            
+            // Process message based on current step
+            if (chatStep === 'name') {
+                // Save name and ask for CPF
+                currentClient = { name: message };
+                chatStep = 'cpf';
+                setTimeout(() => {
+                    addMessageToChat('Agora, qual é o seu CPF?', 'bot');
+                }, 1000);
+            } else if (chatStep === 'cpf') {
+                // Save CPF and move to chat mode
+                currentClient.cpf = message;
+                chatStep = 'chat';
+                
+                // Save client to Firebase
+                try {
+                    const clientQuery = await window.getDocsFromFirestore(
+                        window.firestoreQuery(
+                            window.firestoreCollection(window.firestore, "clients"),
+                            window.firestoreWhere("cpf", "==", currentClient.cpf)
+                        )
+                    );
+                    
+                    if (!clientQuery.empty) {
+                        // Client already exists, use existing ID
+                        const doc = clientQuery.docs[0];
+                        currentClient.id = doc.id;
+                        currentClient.name = doc.data().name;
+                        
+                        // Load previous messages
+                        loadClientChatHistory(currentClient.id);
+                    } else {
+                        // New client, create in Firebase
+                        const clientRef = await window.addDocToFirestore(window.firestoreCollection(window.firestore, "clients"), {
+                            ...currentClient,
+                            timestamp: new Date()
+                        });
+                        currentClient.id = clientRef.id;
+                        console.log("Client saved with ID: ", clientRef.id);
+                    }
+                    
+                    // Update admin panel if open
+                    if (currentUser) {
+                        loadClients();
+                    }
+                    
+                    setTimeout(() => {
+                        addMessageToChat('Obrigado! Agora você está conectado com um especialista. Aguarde a resposta.', 'bot');
+                    }, 1000);
+                    
+                    // Start auto-refresh for real-time chat
+                    if (chatMode === 'chat') {
+                        startClientChatAutoRefresh(currentClient.id);
+                    }
+                } catch (e) {
+                    console.error("Error adding client: ", e);
+                    // Continue even if saving fails
+                    setTimeout(() => {
+                        addMessageToChat('Obrigado! Agora você está conectado com um especialista. Aguarde a resposta.', 'bot');
+                    }, 1000);
+                }
+            } else if (chatStep === 'question') {
+                // Save question to Firebase
+                try {
+                    await window.addDocToFirestore(window.firestoreCollection(window.firestore, "questions"), {
+                        name: 'Anônimo',
+                        question: message,
+                        timestamp: new Date()
+                    });
+                    
+                    setTimeout(() => {
+                        addMessageToChat('Obrigado pela sua pergunta! Nossa equipe responderá em breve.', 'bot');
+                        document.getElementById('chat-widget').style.display = 'none';
+                    }, 1000);
+                } catch (e) {
+                    console.error("Error adding question: ", e);
+                }
+            } else {
+                // Regular chat message - save to Firebase only if we have client ID
+                if (currentClient && currentClient.id) {
+                    try {
+                        await window.addDocToFirestore(window.firestoreCollection(window.firestore, "messages"), {
+                            clientId: currentClient.id,
+                            clientName: currentClient.name,
+                            clientCpf: currentClient.cpf,
+                            message: message,
+                            sender: 'client',
+                            timestamp: new Date()
+                        });
+                        
+                        // Update admin panel if open
+                        if (currentUser) {
+                            loadChats();
+                        }
+                    } catch (e) {
+                        console.error("Error adding message: ", e);
+                    }
+                }
+            }
+        }
+
+        function addMessageToChat(message, sender) {
+            const chatBody = document.getElementById('chat-body');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-message', sender);
+            messageElement.textContent = message;
+            chatBody.appendChild(messageElement);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }
+
+        // Load client chat history
+        async function loadClientChatHistory(clientId) {
+            try {
+                const querySnapshot = await window.getDocsFromFirestore(
+                    window.firestoreQuery(
+                        window.firestoreCollection(window.firestore, "messages"),
+                        window.firestoreWhere("clientId", "==", clientId),
+                        window.firestoreOrderBy("timestamp", "asc")
+                    )
+                );
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    addMessageToChat(data.message, data.sender === 'client' ? 'user' : 'bot');
+                });
+            } catch (e) {
+                console.error("Error loading chat history: ", e);
+            }
+        }
+
+        // Auto-refresh for client chat
+        function startClientChatAutoRefresh(clientId) {
+            // Clear previous interval
+            if (clientChatInterval) {
+                clearInterval(clientChatInterval);
+            }
+            
+            clientChatInterval = setInterval(async () => {
+                try {
+                    const lastMessageQuery = await window.getDocsFromFirestore(
+                        window.firestoreQuery(
+                            window.firestoreCollection(window.firestore, "messages"),
+                            window.firestoreWhere("clientId", "==", clientId),
+                            window.firestoreWhere("sender", "==", "admin"),
+                            window.firestoreOrderBy("timestamp", "desc"),
+                            window.firestoreLimit(1)
+                        )
+                    );
+                    
+                    if (!lastMessageQuery.empty) {
+                        const lastMessage = lastMessageQuery.docs[0].data();
+                        const messageTime = lastMessage.timestamp.toDate();
+                        const now = new Date();
+                        const diffInSeconds = (now - messageTime) / 1000;
+                        
+                        // If message was sent in the last 10 seconds, check if we need to add it
+                        if (diffInSeconds < 10) {
+                            const chatBody = document.getElementById('chat-body');
+                            const lastMessageElement = chatBody.lastElementChild;
+                            
+                            // Only add if it's not already the last message
+                            if (!lastMessageElement || !lastMessageElement.textContent.includes(lastMessage.message)) {
+                                addMessageToChat(lastMessage.message, 'bot');
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error("Error checking new messages: ", e);
+                }
+            }, 3000);
+        }
+
+        // Admin functionality
+        document.getElementById('login-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('login-modal').style.display = 'flex';
+        });
+
+        document.getElementById('admin-login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('admin-email').value;
+            const password = document.getElementById('admin-password').value;
+            
+            try {
+                const userCredential = await window.signInWithEmailAndPassword(window.auth, email, password);
+                currentUser = userCredential.user;
+                document.getElementById('login-modal').style.display = 'none';
+                document.getElementById('admin-panel').style.display = 'block';
+                
+                // Load admin data
+                loadSimulations();
+                loadChats();
+                loadClients();
+            } catch (error) {
+                alert('Erro ao fazer login: ' + error.message);
+            }
+        });
+
+        document.getElementById('admin-logout').addEventListener('click', function() {
+            window.signOut(window.auth).then(() => {
+                currentUser = null;
+                document.getElementById('admin-panel').style.display = 'none';
+            });
+        });
+
+        // Admin tabs
+        document.querySelectorAll('.admin-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                // Remove active class from all tabs
+                document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                this.classList.add('active');
+                
+                // Hide all tab contents
+                document.querySelectorAll('.admin-tab-content').forEach(content => {
+                    content.style.display = 'none';
+                });
+                
+                // Show selected tab content
+                const tabId = this.getAttribute('data-tab') + '-tab';
+                document.getElementById(tabId).style.display = 'block';
+            });
+        });
+
+        async function loadSimulations() {
+            try {
+                const querySnapshot = await window.getDocsFromFirestore(
+                    window.firestoreQuery(
+                        window.firestoreCollection(window.firestore, "simulations"),
+                        window.firestoreOrderBy("timestamp", "desc")
+                    )
+                );
+                
+                const tableBody = document.getElementById('simulations-table-body');
+                tableBody.innerHTML = '';
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = document.createElement('tr');
+                    
+                    // Format date
+                    const date = data.timestamp.toDate();
+                    const formattedDate = date.toLocaleDateString('pt-BR');
+                    
+                    // Determine product name
+                    let productName = 'N/A';
+                    if (data.productType === 'fgts') productName = 'FGTS';
+                    else if (data.productType === 'clt') productName = 'CLT';
+                    else if (data.productType === 'inss') productName = 'INSS';
+                    else if (data.productType === 'bolsa-familia') productName = 'Bolsa Família';
+                    
+                    // Determine requested amount
+                    let requestedAmount = 'N/A';
+                    if (data.productType === 'fgts') requestedAmount = data.withdrawAmount;
+                    else if (data.productType === 'clt') requestedAmount = data.loanAmount;
+                    else if (data.productType === 'inss') requestedAmount = data.inssLoanAmount;
+                    else if (data.productType === 'bolsa-familia') requestedAmount = data.familyAdvanceAmount;
+                    
+                    row.innerHTML = `
+                        <td>${data.name || 'N/A'}</td>
+                        <td>${data.cpf}</td>
+                        <td>${data.phone}</td>
+                        <td>${productName}</td>
+                        <td>${requestedAmount || 'N/A'}</td>
+                        <td>${formattedDate}</td>
+                        <td>
+                            <button class="btn" onclick="contactClient('${data.phone}')">
+                                <i class="fab fa-whatsapp"></i> Contatar
+                            </button>
+                        </td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+            } catch (e) {
+                console.error("Error loading simulations: ", e);
+                document.getElementById('simulations-table-body').innerHTML = '<tr><td colspan="7">Erro ao carregar simulações</td></tr>';
+            }
+        }
+
+        async function loadChats() {
+            try {
+                const querySnapshot = await window.getDocsFromFirestore(
+                    window.firestoreQuery(
+                        window.firestoreCollection(window.firestore, "messages"),
+                        window.firestoreOrderBy("timestamp", "desc")
+                    )
+                );
+                
+                const tableBody = document.getElementById('chats-table-body');
+                tableBody.innerHTML = '';
+                
+                // Group messages by client
+                const clientsMap = new Map();
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const clientId = data.clientId;
+                    
+                    if (!clientsMap.has(clientId)) {
+                        clientsMap.set(clientId, {
+                            name: data.clientName,
+                            cpf: data.clientCpf,
+                            lastMessage: data.message,
+                            lastDate: data.timestamp.toDate()
+                        });
+                    } else {
+                        const client = clientsMap.get(clientId);
+                        if (data.timestamp.toDate() > client.lastDate) {
+                            client.lastMessage = data.message;
+                            client.lastDate = data.timestamp.toDate();
+                        }
+                    }
+                });
+                
+                // Add clients to table
+                clientsMap.forEach((client, clientId) => {
+                    const row = document.createElement('tr');
+                    const formattedDate = client.lastDate.toLocaleDateString('pt-BR');
+                    
+                    row.innerHTML = `
+                        <td>${client.name}</td>
+                        <td>${client.cpf}</td>
+                        <td>${client.lastMessage}</td>
+                        <td>${formattedDate}</td>
+                        <td>
+                            <button class="btn" onclick="viewChat('${clientId}', '${client.name}')">
+                                <i class="fas fa-eye"></i> Ver Chat
+                            </button>
+                        </td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+                
+                if (clientsMap.size === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="5">Nenhuma conversa encontrada</td></tr>';
+                }
+            } catch (e) {
+                console.error("Error loading chats: ", e);
+                document.getElementById('chats-table-body').innerHTML = '<tr><td colspan="5">Erro ao carregar conversas</td></tr>';
+            }
+        }
+
+        async function loadClients() {
+            try {
+                const querySnapshot = await window.getDocsFromFirestore(
+                    window.firestoreQuery(
+                        window.firestoreCollection(window.firestore, "clients"),
+                        window.firestoreOrderBy("timestamp", "desc")
+                    )
+                );
+                
+                const tableBody = document.getElementById('clients-table-body');
+                tableBody.innerHTML = '';
+                
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = document.createElement('tr');
+                    const formattedDate = data.timestamp.toDate().toLocaleDateString('pt-BR');
+                    
+                    row.innerHTML = `
+                        <td>${data.name}</td>
+                        <td>${data.cpf}</td>
+                        <td>${data.phone || 'N/A'}</td>
+                        <td>${formattedDate}</td>
+                        <td><span class="status-active">Ativo</span></td>
+                        <td>
+                            <button class="btn" onclick="contactClient('${data.phone}')">
+                                <i class="fab fa-whatsapp"></i> Contatar
+                            </button>
+                        </td>
+                    `;
+                    
+                    tableBody.appendChild(row);
+                });
+                
+                if (querySnapshot.empty) {
+                    tableBody.innerHTML = '<tr><td colspan="6">Nenhum cliente encontrado</td></tr>';
+                }
+            } catch (e) {
+                console.error("Error loading clients: ", e);
+                document.getElementById('clients-table-body').innerHTML = '<tr><td colspan="6">Erro ao carregar clientes</td></tr>';
+            }
+        }
+
+        // Global functions for admin actions
+        window.contactClient = function(phone) {
+            if (phone && phone !== 'N/A') {
+                const cleanPhone = phone.replace(/\D/g, '');
+                window.open(`https://wa.me/55${cleanPhone}`, '_blank');
+            } else {
+                alert('Número de telefone não disponível');
+            }
+        };
+
+        window.viewChat = async function(clientId, clientName) {
+            currentChatClientId = clientId;
+            currentChatClientName = clientName;
+            
+            document.getElementById('chat-client-name').textContent = clientName;
+            document.getElementById('chat-modal-body').innerHTML = '<div class="chat-modal-message admin">Carregando mensagens...</div>';
+            document.getElementById('chat-modal').style.display = 'flex';
+            
+            // Carregar mensagens existentes
+            await loadChatMessages(clientId);
+            
+            // Iniciar atualização automática
+            startAdminChatAutoRefresh(clientId);
+        };
+
+        // Função para mostrar notificação
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-bell" style="font-size: 18px;"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            document.body.appendChild(notification);
+            
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideInRight 0.5s ease reverse';
+                setTimeout(() => {
+                    notification.remove();
+                }, 500);
+            }, 5000);
+        }
+
+        // Função para carregar mensagens do chat
+        async function loadChatMessages(clientId) {
+            try {
+                const querySnapshot = await window.getDocsFromFirestore(
+                    window.firestoreQuery(
+                        window.firestoreCollection(window.firestore, "messages"),
+                        window.firestoreWhere("clientId", "==", clientId),
+                        window.firestoreOrderBy("timestamp", "asc")
+                    )
+                );
+                
+                const chatBody = document.getElementById('chat-modal-body');
+                chatBody.innerHTML = '';
+                
+                let hasMessages = false;
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    addMessageToAdminChat(data.message, data.sender);
+                    hasMessages = true;
+                });
+                
+                if (!hasMessages) {
+                    chatBody.innerHTML = '<div class="chat-modal-message admin">Nenhuma mensagem ainda. Inicie a conversa!</div>';
+                }
+                
+                // Scroll para baixo
+                chatBody.scrollTop = chatBody.scrollHeight;
+            } catch (e) {
+                console.error("Error loading chat messages: ", e);
+                // Fallback: tentar carregar sem ordenação
+                try {
+                    const querySnapshot = await window.getDocsFromFirestore(
+                        window.firestoreCollection(window.firestore, "messages")
+                    );
+                    
+                    const chatBody = document.getElementById('chat-modal-body');
+                    chatBody.innerHTML = '';
+                    
+                    let hasMessages = false;
+                    querySnapshot.forEach((doc) => {
+                        const data = doc.data();
+                        if (data.clientId === clientId) {
+                            addMessageToAdminChat(data.message, data.sender);
+                            hasMessages = true;
+                        }
+                    });
+                    
+                    if (!hasMessages) {
+                        chatBody.innerHTML = '<div class="chat-modal-message admin">Nenhuma mensagem ainda. Inicie a conversa!</div>';
+                    }
+                    
+                    chatBody.scrollTop = chatBody.scrollHeight;
+                } catch (fallbackError) {
+                    console.error("Fallback error: ", fallbackError);
+                    document.getElementById('chat-modal-body').innerHTML = '<div class="chat-modal-message admin">Erro ao carregar mensagens</div>';
+                }
+            }
+        }
+
+        // Atualização automática para admin (3 segundos)
+        function startAdminChatAutoRefresh(clientId) {
+            // Limpar intervalo anterior
+            if (adminChatInterval) {
+                clearInterval(adminChatInterval);
+            }
+            
+            let lastCheckTime = new Date();
+            
+            adminChatInterval = setInterval(async () => {
+                if (currentChatClientId === clientId) {
+                    await loadChatMessages(clientId);
+                    
+                    // Verificar novas mensagens do cliente para notificação
+                    try {
+                        const newMessagesQuery = await window.getDocsFromFirestore(
+                            window.firestoreQuery(
+                                window.firestoreCollection(window.firestore, "messages"),
+                                window.firestoreWhere("clientId", "==", clientId),
+                                window.firestoreWhere("sender", "==", "client"),
+                                window.firestoreWhere("timestamp", ">", lastCheckTime)
+                            )
+                        );
+                        
+                        if (!newMessagesQuery.empty) {
+                            showNotification(`Nova mensagem de ${currentChatClientName}`);
+                            lastCheckTime = new Date();
+                        }
+                    } catch (e) {
+                        console.error("Error checking new messages: ", e);
+                    }
+                }
+            }, 3000);
+        }
+
+        // Função para adicionar mensagem ao chat do admin
+        function addMessageToAdminChat(message, sender) {
+            const chatBody = document.getElementById('chat-modal-body');
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('chat-modal-message', sender === 'client' ? 'client' : 'admin');
+            messageElement.textContent = message;
+            chatBody.appendChild(messageElement);
+        }
+
+        // Enviar mensagem como admin
+        document.getElementById('admin-chat-send').addEventListener('click', sendAdminMessage);
+        document.getElementById('admin-chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                sendAdminMessage();
+            }
+        });
+
+        async function sendAdminMessage() {
+            const input = document.getElementById('admin-chat-input');
+            const message = input.value.trim();
+            
+            if (!message || !currentChatClientId) return;
+            
+            try {
+                // Salvar mensagem do admin
+                await window.addDocToFirestore(window.firestoreCollection(window.firestore, "messages"), {
+                    clientId: currentChatClientId,
+                    clientName: currentChatClientName,
+                    message: message,
+                    sender: 'admin',
+                    timestamp: new Date()
+                });
+                
+                input.value = '';
+                
+            } catch (e) {
+                console.error("Error sending admin message: ", e);
+                alert('Erro ao enviar mensagem');
+            }
+        }
+
+        // Fechar modal do chat
+        document.getElementById('chat-modal-close').addEventListener('click', function() {
+            document.getElementById('chat-modal').style.display = 'none';
+            if (adminChatInterval) {
+                clearInterval(adminChatInterval);
+                adminChatInterval = null;
+            }
+            currentChatClientId = null;
+            currentChatClientName = null;
         });
 
         // Smooth scrolling for anchor links
@@ -1624,15 +3061,21 @@
             e.target.value = value;
         });
 
-        // Currency Mask for FGTS Balance
-        document.getElementById('fgts-balance').addEventListener('input', function(e) {
+        // Currency Mask for FGTS Balance and other amounts
+        document.getElementById('fgts-balance').addEventListener('input', formatCurrency);
+        document.getElementById('withdraw-amount').addEventListener('input', formatCurrency);
+        document.getElementById('loan-amount').addEventListener('input', formatCurrency);
+        document.getElementById('inss-loan-amount').addEventListener('input', formatCurrency);
+        document.getElementById('family-advance-amount').addEventListener('input', formatCurrency);
+
+        function formatCurrency(e) {
             let value = e.target.value.replace(/\D/g, '');
             value = (value/100).toFixed(2) + '';
             value = value.replace(".", ",");
             value = value.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
             value = value.replace(/(\d)(\d{3}),/g, "$1.$2,");
             e.target.value = 'R$ ' + value;
-        });
+        }
 
         // Header scroll effect
         window.addEventListener('scroll', function() {
