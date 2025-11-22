@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1681,8 +1682,10 @@
             <div class="simulator-container">
                 <div class="simulator-content">
                     <h2>Simule seu Empréstimo</h2>
-                    <p>Descubra as condições ideais para sua necessidade financeira. Nosso simulador oferece uma prévia personalizada sem compromisso.</p>
-                    <p>Para o FGTS, apenas com o CPF já é possível realizar uma simulação completa e conhecer os valores disponíveis.</p>
+                    <div id="simulator-description">
+                        <p>Descubra as condições ideais para sua necessidade financeira. Nosso simulador oferece uma prévia personalizada sem compromisso.</p>
+                        <p>Para o FGTS, apenas com o CPF já é possível realizar uma simulação completa e conhecer os valores disponíveis.</p>
+                    </div>
                     <div class="product-selector">
                         <button class="product-btn active" data-product="fgts">FGTS</button>
                         <button class="product-btn" data-product="clt">Empréstimo CLT</button>
@@ -2227,6 +2230,9 @@
             } else if (productType === 'bolsa-familia') {
                 bolsaFamiliaFields.style.display = 'block';
             }
+            
+            // Update description text
+            updateSimulatorDescription(productType);
         });
 
         // Product Selector Buttons
@@ -2244,8 +2250,57 @@
                 
                 // Trigger change event to update form fields
                 document.getElementById('product-type').dispatchEvent(new Event('change'));
+                
+                // Update description text
+                updateSimulatorDescription(productType);
             });
         });
+
+        // Function to update simulator description based on product type
+        function updateSimulatorDescription(productType) {
+            const descriptionElement = document.getElementById('simulator-description');
+            let descriptionHTML = '';
+            
+            switch(productType) {
+                case 'fgts':
+                    descriptionHTML = `
+                        <p>Com apenas o seu CPF já é possível consultar quanto você pode antecipar do FGTS e conhecer os valores disponíveis.</p>
+                        <p>A análise é rápida, sem burocracia e sem consulta ao SPC/Serasa.</p>
+                        <p>Receba o valor direto na sua conta e use como quiser, com parcelas descontadas automaticamente do próprio FGTS.</p>
+                    `;
+                    break;
+                case 'clt':
+                    descriptionHTML = `
+                        <p>O Empréstimo Consignado para trabalhadores CLT oferece taxas mais baixas e parcelas fixas descontadas diretamente da folha de pagamento.</p>
+                        <p>Ideal para quem busca crédito com condições mais acessíveis, mais limite de aprovação e mais segurança.</p>
+                        <p>A simulação é rápida, online e sem compromisso.</p>
+                    `;
+                    break;
+                case 'inss':
+                    descriptionHTML = `
+                        <p>O Consignado INSS é voltado para aposentados, pensionistas, beneficiários do BPC/LOAS.</p>
+                        <p>Com taxas reduzidas, facilidade de contratação e parcelas descontadas diretamente do benefício, você garante crédito com menor custo e sem complicação.</p>
+                        <p>✔ Refinanciamento – para quem já possui empréstimo e deseja reduzir parcelas, liberar novo valor ou melhorar as condições atuais.</p>
+                        <p>✔ Cartão de Crédito Consignado – limite exclusivo para compras e saques, com pagamento mínimo descontado diretamente do benefício, taxas muito menores que as de cartões comuns e possibilidade de saque complementar, liberando dinheiro extra para usar como precisar.</p>
+                        <p>Consulte agora e veja quanto pode liberar! 💳📲</p>
+                    `;
+                    break;
+                case 'bolsa-familia':
+                    descriptionHTML = `
+                        <p>O empréstimo Bolsa Família é uma linha de crédito destinada aos beneficiários do programa Bolsa Família que desejam ter acesso a um valor extra para usar como precisar, pagando o empréstimo de forma parcelada.</p>
+                        <p>Ele funciona de maneira semelhante ao crédito consignado, onde as parcelas são descontadas diretamente do benefício mensal. Por isso, costuma ter juros menores e aprovação mais rápida.</p>
+                        <p>A simulação é gratuita e você descobre na hora o valor disponível.</p>
+                    `;
+                    break;
+                default:
+                    descriptionHTML = `
+                        <p>Descubra as condições ideais para sua necessidade financeira. Nosso simulador oferece uma prévia personalizada sem compromisso.</p>
+                        <p>Para o FGTS, apenas com o CPF já é possível realizar uma simulação completa e conhecer os valores disponíveis.</p>
+                    `;
+            }
+            
+            descriptionElement.innerHTML = descriptionHTML;
+        }
 
         // Simulator Form Submission
         document.getElementById('simulator-form').addEventListener('submit', async function(e) {
