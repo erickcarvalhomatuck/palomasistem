@@ -1149,6 +1149,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 25px;
+            
         }
 
         .contact-item i {
@@ -1169,24 +1170,34 @@
             gap: 15px;
         }
 
+        /* Remove o fundo preto padrão */
         .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 50px;
-            height: 50px;
-            background-color: var(--secondary);
-            color: var(--white);
-            border-radius: 50%;
-            transition: var(--transition);
-            font-size: 20px;
+            font-size: 32px; /* Aumente o valor como quiser */
+            background: none !important;
+            color: inherit !important;
         }
 
-        .social-links a:hover {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: var(--secondary);
-            transform: translateY(-5px);
+        /* Instagram */
+        .social-links a.instagram i {
+            color: #E4405F;
         }
+
+        /* WhatsApp */
+        .social-links a.whatsapp i {
+            color: #25D366;
+        }
+
+        /* LinkedIn */
+        .social-links a.linkedin i {
+            color: #0077B5;
+        }
+
+        /* Efeito hover mantendo as cores */
+        .social-links a:hover i {
+            transform: scale(1.2);
+            transition: 0.3s;
+        }
+
 
         .contact-form {
             flex: 1;
@@ -1701,7 +1712,7 @@
                                 <option value="fgts">Antecipação Saque-Aniversário FGTS</option>
                                 <option value="clt">Empréstimo Consignado CLT</option>
                                 <option value="inss">Empréstimo Consignado INSS</option>
-                                <option value="bolsa-familia">Antecipação Bolsa Família</option>
+                                <option value="bolsa-familia">Empréstimo Bolsa Família</option>
                             </select>
                         </div>
                         
@@ -1863,17 +1874,10 @@
                     <p>Estamos à disposição para esclarecer todas as suas dúvidas e oferecer a melhor solução financeira para suas necessidades. Atendimento humanizado e especializado.</p>
                     <div class="contact-details">
                         <div class="contact-item">
-                            <i class="fas fa-phone"></i>
+                            <i class="fab fa-whatsapp"></i>
                             <div>
                                 <h4>Telefone</h4>
-                                <p>(35) 99900-8321</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <i class="fas fa-phone"></i>
-                            <div>
-                                <h4>Telefone</h4>
-                                <p>(31) 99839-6424</p>
+                                <p>(35) 99900-8321<br>(31) 99839-6424</p>
                             </div>
                         </div>
                         <div class="contact-item">
@@ -1892,10 +1896,11 @@
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="https://instagram.com/bacellarsolucoesfinanceiras" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://wa.me/5531998396424" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://instagram.com/bacellarsolucoesfinanceiras" target="_blank" title="Instagram" class="instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/5531998396424" target="_blank" title="WhatsApp" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" title="LinkedIn" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
                     </div>
+
                 </div>
                 <div class="contact-form">
                     <form id="contact-form">
@@ -1918,7 +1923,7 @@
                                 <option value="fgts">Antecipação FGTS</option>
                                 <option value="clt">Empréstimo CLT</option>
                                 <option value="inss">Empréstimo INSS</option>
-                                <option value="bolsa-familia">Bolsa Família</option>
+                                <option value="bolsa-familia"> Empréstimo Bolsa Família</option>
                             </select>
                         </div>
                         <div class="form-group">
@@ -1959,16 +1964,15 @@
                             <li><a href="#products">Saque FGTS</a></li>
                             <li><a href="#products">Empréstimo CLT</a></li>
                             <li><a href="#products">Empréstimo INSS</a></li>
+                            <li><a href="#products">Empréstimo Bolsa Família</a></li>
                         </ul>
                     </div>
                     <div>
                         <h4>Contato</h4>
                         <ul>
-                            <li><a href="tel:+5535999008321">(35) 99900-8321</a></li>
-                            <li><a href="tel:+5531998396424">(31)99839-6424</a></li>
+                            <li><a href="https://wa.me/5535999008321">(35) 99900-8321</a></li>
+                            <li><a href="https://wa.me/555531998396424">(31)99839-6424</a></li>
                             <li><a href="mailto:bacellarsolucoesfinanceiras@gmail.com">bacellarsolucoesfinanceiras@gmail.com</a></li>
-                            <li><a href="https://wa.me/5535999008321" target="_blank">WhatsApp</a></li>
-                            <li><a href="https://wa.me/555531998396424" target="_blank">WhatsApp</a></li>
                             <li><a href="https://instagram.com/bacellarsolucoesfinanceiras" target="_blank">Instagram</a></li>
                         </ul>
                     </div>
